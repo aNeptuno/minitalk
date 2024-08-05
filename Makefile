@@ -6,7 +6,7 @@
 #    By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 13:38:18 by adiban-i          #+#    #+#              #
-#    Updated: 2024/08/05 13:54:20 by adiban-i         ###   ########.fr        #
+#    Updated: 2024/08/05 14:23:32 by adiban-i         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,20 +27,14 @@ CUT = "\033[K"
 SERVER = server
 CLIENT = client
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT)/headers -L$(LIBFT) -Llibft -lft #-Werror
-
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT) #-Werror
 LIBFT = libft
 
-SRCS = my_checker.c get_next_line.c get_next_line_utils.c utils.c
-OBJS = $(SRCS:.c=.o)
-
-all:
-	@echo $(CYAN)Building libft library...$(NC)
-	@make -s -C $(LIBFT)
-	@echo $(GREEN)OK!$(NC)
-	@echo $(MAGENTA)Compiling server and client...$(NC)
-	@gcc $(CFLAGS) server.c -o $(SERVER)
-	@gcc $(CFLAGS) client.c -o $(CLIENT)
+all: libft
+	@echo $(CYAN)Compiling server and client...$(NC)
+	@$(CC) $(CFLAGS) server.c -o $(SERVER) -L$(LIBFT) -lft
+	@$(CC) $(CFLAGS) client.c -o $(CLIENT) -L$(LIBFT) -lft
 	@echo $(GREEN)Compilation of server and client is successful 🎉$(NC)
 	
 libft:

@@ -6,7 +6,14 @@
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 13:54:33 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/08/05 13:54:33 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:24:41 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include <signal.h>
+
+int	main(void)
+{
+    return 0;
+}
