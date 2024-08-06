@@ -6,7 +6,7 @@
 #    By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 13:38:18 by adiban-i          #+#    #+#              #
-#    Updated: 2024/08/06 12:40:05 by adiban-i         ###   ########.fr        #
+#    Updated: 2024/08/06 14:31:28 by adiban-i         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SERVER = server
 CLIENT = client
 CC = gcc
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT) -I$(PRINTF)#-Werror
+CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT) -I$(PRINTF) -I. #-Werror
 LIBFT = libft
 PRINTF = ft_printf
 
