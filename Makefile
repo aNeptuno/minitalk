@@ -6,7 +6,7 @@
 #    By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 13:38:18 by adiban-i          #+#    #+#              #
-#    Updated: 2024/08/05 14:23:32 by adiban-i         ###   ########.fr        #
+#    Updated: 2024/08/06 12:40:05 by adiban-i         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,26 +28,34 @@ SERVER = server
 CLIENT = client
 CC = gcc
 CC = gcc
-CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT) #-Werror
+CFLAGS = -Wall -Wextra -O2 -g -I$(LIBFT) -I$(PRINTF)#-Werror
 LIBFT = libft
+PRINTF = ft_printf
 
-all: libft
+all: libft libftprintf
 	@echo $(CYAN)Compiling server and client...$(NC)
-	@$(CC) $(CFLAGS) server.c -o $(SERVER) -L$(LIBFT) -lft
-	@$(CC) $(CFLAGS) client.c -o $(CLIENT) -L$(LIBFT) -lft
+	@$(CC) $(CFLAGS) server.c -o $(SERVER) -L$(LIBFT) -lft -L$(PRINTF) -lftprintf
+	@$(CC) $(CFLAGS) client.c -o $(CLIENT) -L$(LIBFT) -lft -L$(PRINTF) -lftprintf
 	@echo $(GREEN)Compilation of server and client is successful 🎉$(NC)
 	
 libft:
-	@echo $(CYAN)Building libft library...$(NC)
-	make -C libft
+	@echo $(CYAN)Building ft library...$(NC)
+	make -s -C libft
+
+libftprintf:
+	@echo $(MAGENTA)Building ftprintf library...$(NC)
+	make -s -C $(PRINTF)
 
 clean:
 	rm -f $(OBJECTS)
 	make -C libft clean
+	make -C $(PRINTF) clean
+	@echo $(RED)Cleaned objects and library objects$(NC)
 	
 fclean: clean
-	rm -f server client libft/libft.a
+	rm -f server client libft/libft.a $(PRINTF)/libftprintf.a
+	@echo $(RED)Cleaned all objects, libs and programs$(NC)
 
 re: fclean all
 
-.PHONY: all bonus libft clean fclean re
+.PHONY: all clean fclean re bonus libft libftprintf
