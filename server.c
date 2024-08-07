@@ -6,7 +6,7 @@
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 13:54:35 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/08/07 14:40:23 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:46:55 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ static void	action(int signum, siginfo_t *siginfo, void *context)
 	if (signum == SIGUSR1)
 	{
 		s_state.current_char |= (1 << (s_state.bit_count - 1));
-		kill(siginfo->si_pid, SIGUSR1);
 	}
-	else if (signum == SIGUSR2)
-		kill(siginfo->si_pid, SIGUSR2);
 	if (s_state.bit_count == 8)
 	{
 		ft_printf("\033[35m");
@@ -44,6 +41,7 @@ static void	action(int signum, siginfo_t *siginfo, void *context)
 		s_state.bit_count = 0;
 		s_state.current_char = 0;
 	}
+	kill(siginfo->si_pid, signum);
 }
 
 int main()
