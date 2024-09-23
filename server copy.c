@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server copy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 13:54:35 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/09/23 11:22:36 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:41:18 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 #include <stdio.h>
-t_server_state	s_state = {0, 0, -1, 0, {0}};
+t_server_state	s_state = {0, 0, -1};
 
 static void	print_header(void)
 {
@@ -25,34 +25,29 @@ static void	print_header(void)
 	ft_printf(" /******************************************/  \033[0m\n\n");
 }
 
-static void	print_msg()
-{
-	s_state.message[s_state.msg_length - 1] = '\n';
-	s_state.current_client = -1;
-	s_state.msg_length = 0;
-	ft_printf("\033[35m");
-	ft_putstr_fd(s_state.message, STDOUT_FILENO);
-	ft_printf("\033[0m");
-}
-
 static void	action(int signum, siginfo_t *siginfo, void *context)
 {
 	(void)context;
 	s_state.bit_count++;
-
-	/* if (s_state.current_client == -1)
+	
+	if (s_state.current_client == -1)
 		s_state.current_client = siginfo->si_pid;
 	if (s_state.current_client != siginfo->si_pid)
-		return; */
+		return;
 
 	if (signum == SIGUSR1)
+	{
 		s_state.current_char |= (1 << (s_state.bit_count - 1));
+	}
 	if (s_state.bit_count == 8)
 	{
-		s_state.message[s_state.msg_length] = s_state.current_char;
-		s_state.msg_length++;
-		if (s_state.current_char == '\0')
-			print_msg();
+		ft_printf("\033[35m");
+		ft_putchar_fd(s_state.current_char, STDOUT_FILENO);
+		ft_printf("\033[0m");
+		if (s_state.current_char == '\n')
+        {
+            s_state.current_client = -1;
+        }
 		s_state.bit_count = 0;
 		s_state.current_char = 0;
 	}

@@ -6,7 +6,7 @@
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 14:29:20 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/08/07 14:32:02 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:14:20 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ typedef struct s_server_state
 {
 	int		bit_count;
 	char	current_char;
+	pid_t	current_client;
+	int		msg_length;
+	char	message[3000];
+	
 }	t_server_state;
 
 #endif

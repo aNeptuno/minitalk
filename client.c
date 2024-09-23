@@ -6,7 +6,7 @@
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 13:54:33 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/08/07 14:38:07 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:21:20 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ int	main(int ac, char **av)
             av[2]++;
         }
         send_binary_msg('\0', pid);
-        send_binary_msg('\n', pid);
     }
     else
     {
+        ft_printf("\033[31m");
         ft_printf("Incorrect agruments\n");
         ft_printf("Usage: ./client (int)[PID] (string)[MSG]\n");
+        ft_printf("\033[0m");
     }
     while (1)
 		pause();
