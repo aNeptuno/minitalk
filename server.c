@@ -6,7 +6,7 @@
 /*   By: adiban-i <adiban-i@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 13:54:35 by adiban-i          #+#    #+#             */
-/*   Updated: 2024/09/23 11:22:36 by adiban-i         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:46:41 by adiban-i         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ static void	action(int signum, siginfo_t *siginfo, void *context)
 	(void)context;
 	s_state.bit_count++;
 
-	/* if (s_state.current_client == -1)
+	if (s_state.current_client == -1)
 		s_state.current_client = siginfo->si_pid;
 	if (s_state.current_client != siginfo->si_pid)
-		return; */
-
+		return;
 	if (signum == SIGUSR1)
 		s_state.current_char |= (1 << (s_state.bit_count - 1));
 	if (s_state.bit_count == 8)
