@@ -27,7 +27,7 @@ typedef struct s_server_state
 	pid_t	current_client;
 	int		msg_length;
 	char	message[3000];
-	
+
 }	t_server_state;
 
 #endif
