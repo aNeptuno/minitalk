@@ -60,12 +60,13 @@ static void	action(int signum, siginfo_t *siginfo, void *context)
 	}
 }
 
-static void	print_error_msg()
+static void	print_error_msg(void)
 {
 	ft_printf("\033[31m");
 	ft_printf("Incorrect agruments\n");
 	ft_printf("Usage: ./client (int)[PID] (string)[MSG]\n");
 	ft_printf("\033[0m");
+	exit (1);
 }
 
 int	main(int ac, char **av)

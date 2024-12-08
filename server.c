@@ -12,7 +12,8 @@
 
 #include "minitalk.h"
 #include <stdio.h>
-t_server_state	s_state = {0, 0, -1, 0, {0}};
+
+t_server_state	g_state = {0, 0, -1, 0, {0}};
 
 static void	print_header(void)
 {
@@ -25,40 +26,45 @@ static void	print_header(void)
 	ft_printf(" /******************************************/  \033[0m\n\n");
 }
 
-static void	print_msg()
+static void	print_msg(void)
 {
-	s_state.message[s_state.msg_length - 1] = '\n';
-	s_state.current_client = -1;
-	s_state.msg_length = 0;
+	g_state.message[g_state.msg_length - 1] = '\n';
 	ft_printf("\033[35m");
-	ft_putstr_fd(s_state.message, STDOUT_FILENO);
+	ft_putstr_fd(g_state.message, STDOUT_FILENO);
 	ft_printf("\033[0m");
+	g_state.current_client = -1;
+	g_state.msg_length = 0;
+	g_state.bit_count = 0;
+	g_state.current_char = 0;
+	ft_memset(g_state.message, '\0', sizeof(g_state.message));
 }
 
 static void	action(int signum, siginfo_t *siginfo, void *context)
 {
 	(void)context;
-	s_state.bit_count++;
-
-	if (s_state.current_client == -1)
-		s_state.current_client = siginfo->si_pid;
-	if (s_state.current_client != siginfo->si_pid)
-		return;
+	g_state.bit_count++;
+	if (g_state.current_client == -1)
+		g_state.current_client = siginfo->si_pid;
+	if (g_state.current_client != siginfo->si_pid)
+		return ;
 	if (signum == SIGUSR1)
-		s_state.current_char |= (1 << (s_state.bit_count - 1));
-	if (s_state.bit_count == 8)
+		g_state.current_char |= (1 << (g_state.bit_count - 1));
+	if (g_state.bit_count == 8)
 	{
-		s_state.message[s_state.msg_length] = s_state.current_char;
-		s_state.msg_length++;
-		if (s_state.current_char == '\0')
+		g_state.message[g_state.msg_length] = g_state.current_char;
+		g_state.msg_length++;
+		if (g_state.current_char == '\0')
+		{
 			print_msg();
-		s_state.bit_count = 0;
-		s_state.current_char = 0;
+			return ;
+		}
+		g_state.bit_count = 0;
+		g_state.current_char = 0;
 	}
 	kill(siginfo->si_pid, signum);
 }
 
-int main()
+int	main(void)
 {
 	struct sigaction	s_sa;
 
